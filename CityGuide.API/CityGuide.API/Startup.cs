@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using CityGuide.API.Data;
+using CityGuide.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,10 +32,13 @@ namespace CityGuide.API
         public void ConfigureServices(IServiceCollection services)
         {
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);
+
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(opt=>opt.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddCors();
             services.AddScoped<IAppRepository, AppRepository>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddAutoMapper();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options=>
             {
@@ -55,6 +59,7 @@ namespace CityGuide.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseAuthentication();
             app.UseMvc();

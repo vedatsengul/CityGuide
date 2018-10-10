@@ -15,6 +15,8 @@ namespace CityGuide.API.Helpers
             CreateMap<City, CityForListDTO>()
                 .ForMember(dest=>dest.PhotoUrl,opt=>opt.MapFrom(src=>src.Photos.FirstOrDefault(p=>p.IsMain==true).Url));
             CreateMap<City, CityForDetailDTO>();
+            CreateMap<Photo, PhotoForCreationDTO>();
+            CreateMap<PhotoForReturnDTO, Photo>();
         }
     }
 }
