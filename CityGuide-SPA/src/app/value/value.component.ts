@@ -19,8 +19,8 @@ export class ValueComponent implements OnInit {
       }
       )
   }
-getValues()
-{
-  return this.httpClient.get<Value[]>("http://localhost:62381/api/values")
-}
+  getValues()
+  {
+    return this.httpClient.get<Value[]>("http://localhost:62381/api/values")
+  }
 }
