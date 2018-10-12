@@ -3,4 +3,5 @@ export class Photo {
     cityid:number;
     dateAdded:Date;
     description:string
+    url:string
 }
