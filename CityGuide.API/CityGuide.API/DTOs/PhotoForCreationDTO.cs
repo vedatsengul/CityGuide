@@ -18,5 +18,6 @@ namespace CityGuide.API.DTOs
         {
             DateAdded = DateTime.Now;
         }
+
     }
 }
