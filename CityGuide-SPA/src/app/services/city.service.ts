@@ -22,4 +22,9 @@ export class CityService {
   getPhotosByCity(cityId):Observable<Photo[]>{
     return this.httpClient.get<Photo[]>(this.path+"cities/photos/?cityId="+cityId)
   }
+
+  addCity(city){
+    this.httpClient.post(this.path+"cities/add",city).subscribe();
+  }
+
 }
